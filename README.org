@@ -1,7 +1,8 @@
 * MONMSGQS
 
-This is a simple program I use to put a bunch of different message
-queues in break mode every day when I log in.  
+This is a simple CL program for the IBM i (nee iSeries, nee AS/400)
+that I use to put a bunch of different message queues in break mode
+every day when I log in.
 
 First it puts the current workstation message queue and the current
 user’s message queue in break mode (with severity level 0) and then it
