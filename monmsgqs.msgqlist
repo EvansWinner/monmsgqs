@@ -1,0 +1,5 @@
+     A* LIST OF MESSAGE QUEUES TO MONITOR
+                R MONMSGQS
+     A            LIB           10A         TEXT('LIBRARY NAME')
+     A            QUEUE         10A         TEXT('MESSAGE QUEUE NAME')
+     A            SEVERITY       2A         TEXT('BREAK SEVERITY LEVEL')

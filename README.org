@@ -1,0 +1,25 @@
+* MONMSGQS
+
+This is a simple program I use to put a bunch of different message
+queues in break mode every day when I log in.  
+
+First it puts the current workstation message queue and the current
+user’s message queue in break mode (with severity level 0) and then it
+puts all the queues it finds in the file MSGQLIST into break mode,
+with whatever severity level is listed in the file. 
+
+DDS for the file is in MSGQLIST.  It defines a three-field physical
+file, one field is for the library where the message queue lives,
+another field is for the queue name, and the third is the severity
+level to use.  Create a physical file in the usual way.  The program
+has a DCLF call near the beginning to this physical file.  It says
+*libl/msgqlist.  You might need to change the library name if you want
+the file to live somewhere else.
+
+MONMSGQSCL is the CL source for the program.  The source member
+MONMSGQS is a CMD source, with just the one line, ‘CMD.”  You can make
+that fancier if you want to.  Compile it with the usual CRTCMD
+command, being sure to use MONMSGQSCL as the “Program to process
+command” parameter.  It has a different name from the CL program
+source, because I tend to keep all my source files in a single file
+for a given application, rather than the usual IBM way.

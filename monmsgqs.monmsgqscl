@@ -1,0 +1,38 @@
+/* MONMSGQS --- put some message queues in break mode and examine them interactively */
+/* EVANS WINNER, 20140325 */
+
+pgm
+dcl &wkstn *char 10
+dcl &user *char 10
+dclf *libl/msgqlist
+
+monmsg cpf0000 exec(goto fail)
+
+rtvjoba job(&wkstn)
+rtvjoba user(&user)
+
+/* First the workstation and user queues */
+/* We do both chgmsgq and dspmsgq because when chgmsgq displays the queue it won't do it +
+   with assistance level as *basic */
+chgmsgq qsys/&wkstn dlvry(*break) sev(00)
+dspmsg qsys/&wkstn astlvl(*basic)
+chgmsgq qusrsys/&user dlvry(*break) sev(00)
+dspmsg qusrsys/&user astlvl(*basic)
+
+/* Then loop through the file */
+loop:
+  rcvf
+  monmsg cpf0864 exec(goto done)
+  callsubr process
+goto loop
+
+fail:
+sndpgmmsg 'WARNING: One or more queues could not be allocated.'
+
+subr process
+  chgmsgq &lib/&queue dlvry(*break) sev(&severity)
+  dspmsg &lib/&queue astlvl(*basic)
+endsubr
+
+done:
+endpgm
